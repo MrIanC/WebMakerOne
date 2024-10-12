@@ -108,17 +108,16 @@ foreach (globrec("$webroot/resources/js/actions", $webroot) as $key => $file) {
     $replaceList[] = $webroot . $file;
 }
 
-//print_r($replaceList);
 $msg = [];
 $allfiles = listFilesInZip($zipFile);
 foreach ($allfiles as $filename) {
     if (str_contains($filename, "WebMakerOne-main/setup")) {
-        $destinationPath = dirname(str_replace("WebMakerOne-main", $_SERVER['DOCUMENT_ROOT'], $filename));
+        $destinationPath = $_SERVER['DOCUMENT_ROOT'];//dirname(str_replace("WebMakerOne-main", , $filename));
         unzipFile($zipFile, $filename, $destinationPath);
         $msg[] = "$filename<br>";
     }
     if (str_contains($filename, "WebMakerOne-main/resources/js/")) {
-        $destinationPath = dirname(str_replace("WebMakerOne-main", $_SERVER['DOCUMENT_ROOT'], $filename));
+        $destinationPath = $_SERVER['DOCUMENT_ROOT'];//dirname(str_replace("WebMakerOne-main", , $filename));
         unzipFile($zipFile, $filename, $destinationPath);
         $msg[] = "$filename<br>";
     }
