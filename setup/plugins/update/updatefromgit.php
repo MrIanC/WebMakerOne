@@ -50,6 +50,8 @@ if ($zip->open($zipFile) === TRUE) {
             $extract = false;
         if (str_contains($newPath, "state.json"))
             $extract = false;
+        if (str_contains($newPath, "path.php"))
+            $extract = false;
 
 
         if ($extract == true) {
