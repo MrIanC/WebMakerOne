@@ -1,0 +1,40 @@
+<section>
+    <div class="align-items-center bg-opacity-75  bg-light text-dark">
+        <div class="container py-5">
+            <h2 class="fw-bold mytitle">Heading</h2>
+            <form id="submitformoffsite" class="action" data-action="emailform">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <input id="sent_return" type="hidden" name="sent" value="" />
+                        <input id="fail_return" type="hidden" name="fail" value="" />
+                        <input type="hidden" name="from" value="" />
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required="true" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="Your Phone Number"
+                                required="true" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Your Email"
+                                required="true" />
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="4" placeholder="Your Message"
+                                required="true"></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

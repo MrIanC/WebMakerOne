@@ -1,0 +1,34 @@
+<section>
+    <div class="align-items-center bg-opacity-75">
+        <div class="container py-5">
+            <h2 class="fw-bold mytitle">Contact Form</h2>
+            <form method="post" action="https://sendmail.techbit.co.za/s.php">
+                <input id="sent_return" type="hidden" name="sent" value="" />
+                <input id="fail_return" type="hidden" name="fail" value="" />
+                <input type="hidden" name="from" value="" />
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" name="name" placeholder="Your Name" required="true" value=""
+                        class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="number" class="form-label">Phone Number</label>
+                    <input type="tel" name="number" placeholder="Your Phone Number" required="true"
+                        class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" name="email" placeholder="Your Email" required="true" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea name="message" rows="4" placeholder="Your Message" required="true"
+                        class="form-control"></textarea>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="button" data-action="emailform" class="btn action btn-custom-dark">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
