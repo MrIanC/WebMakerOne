@@ -1,4 +1,8 @@
 <?php
+if (!isset($users)) {
+    header("HTTP/1.1 404 Not Found");
+    die();
+}
 function checkCreds()
 {
     global $usersPath;
@@ -27,7 +31,7 @@ function checkCreds()
         $error = "Invalid username or password.";
         return $error;
     }
-    
+
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $error = checkCreds();

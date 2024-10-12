@@ -94,7 +94,7 @@ if ($zip->open($zipFile) === TRUE) {
         <div class="text-center">
             <div class="display-1 fw-bold">Update</div>
         </div>
-        <p>Lets Check!</p>
+        <p>Updated Files:</p>
         <?php echo implode($msg); ?>
     </div>
 </body>
