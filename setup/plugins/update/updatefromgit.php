@@ -19,9 +19,9 @@ curl_setopt($ch, CURLOPT_ENCODING, '');
 curl_exec($ch);
 
 if (curl_errno($ch)) {
-    echo 'Error: ' . curl_error($ch);
+    $msg[] = 'Error: ' . curl_error($ch);
 } else {
-    echo 'File downloaded successfully!';
+    $msg[] = 'File downloaded successfully!';
 }
 
 curl_close($ch);
@@ -37,14 +37,14 @@ function unzipFile($zipFilePath, $fileNameToExtract, $destinationPath)
         if ($zip->locateName($fileNameToExtract) !== false) {
             // Extract the specific file to the destination path
             $zip->extractTo($destinationPath, $fileNameToExtract);
-            echo "File '$fileNameToExtract' extracted to '$destinationPath'.\n";
+            $msg[] = "File '$fileNameToExtract' extracted to '$destinationPath'.\n";
         } else {
-            echo "File '$fileNameToExtract' not found in the ZIP archive.\n";
+            $msg[] = "File '$fileNameToExtract' not found in the ZIP archive.\n";
         }
         // Close the ZIP file
         $zip->close();
     } else {
-        echo "Failed to open ZIP file.\n";
+        $msg[] = "Failed to open ZIP file.\n";
     }
 }
 
@@ -123,8 +123,7 @@ foreach ($allfiles as $filename) {
 }
 
 unlink($zipFile);
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -150,12 +149,9 @@ unlink($zipFile);
         <div class="text-center">
             <div class="display-1 fw-bold">Update</div>
         </div>
-        <p class="fw-bold fs-2">Still working on updating from GIT without overwriting everything. I'm Getting there.
-            It's just not a priority right now.</p>
-        <?php echo implode($msg); ?>
+        <p>Files Updated</p>
+        <?php $msg[] = implode($msg); ?>
     </div>
-    <script>
-    </script>
 </body>
 
 </html>
