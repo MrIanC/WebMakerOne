@@ -1,6 +1,7 @@
 <?php
 if (!isset($users))  {
     header("HTTP/1.1 404 Not Found");
+
     die();
 }
 function makeUser()
@@ -21,7 +22,7 @@ function makeUser()
     $usersPath = $_SERVER['DOCUMENT_ROOT'] . "/setup/plugins/users/credentials";
     $oodr = false;
 
-    if (is_readable(dirname($_SERVER['DOCUMENT_ROOT']))) {
+    if (@is_readable(dirname($_SERVER['DOCUMENT_ROOT']))) {
         try {
             file_put_contents(dirname($_SERVER['DOCUMENT_ROOT']) . "/text.txt", "testing");
             unlink(dirname($_SERVER['DOCUMENT_ROOT']) . "/text.txt");
@@ -81,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 $oodr = false;
 
-if (is_readable(dirname($_SERVER['DOCUMENT_ROOT']))) {
+if (@is_readable(dirname($_SERVER['DOCUMENT_ROOT']))) {
     try {
         file_put_contents(dirname($_SERVER['DOCUMENT_ROOT']) . "/text.txt", "testing");
         unlink(dirname($_SERVER['DOCUMENT_ROOT']) . "/text.txt");
