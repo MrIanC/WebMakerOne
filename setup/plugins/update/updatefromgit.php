@@ -29,6 +29,7 @@ fclose($fp);
 
 function unzipFile($zipFilePath, $fileNameToExtract, $destinationPath)
 {
+    global $msg;
     $zip = new ZipArchive;
 
     // Open the ZIP file
@@ -50,6 +51,7 @@ function unzipFile($zipFilePath, $fileNameToExtract, $destinationPath)
 
 function listFilesInZip($zipFilePath)
 {
+    global $msg;
     $files = [];
     $zip = new ZipArchive;
 
@@ -64,7 +66,7 @@ function listFilesInZip($zipFilePath)
         // Close the ZIP file
         $zip->close();
     } else {
-        echo "Failed to open ZIP file.\n";
+        $msg[] = "Failed to open ZIP file.\n";
     }
     return $files;
 }

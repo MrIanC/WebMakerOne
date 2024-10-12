@@ -1,4 +1,5 @@
 <?php
+$msg = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
 
     $uploadfilename = $_FILES['fileUpload'];
@@ -6,49 +7,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
     $uploadFile = $uploadDir . basename($uploadfilename['name']);
 
     if (move_uploaded_file($uploadfilename['tmp_name'], $uploadFile)) {
-        echo "File successfully uploaded!";
+        $msg[] =  "File successfully uploaded!";
     } else {
-        echo "File upload failed!";
+        $msg[] =  "File upload failed!";
     }
 
-    echo "<pre>";
+    $msg[] =  "<pre>";
     $files = listFilesInZip($uploadFile);
 
 
     foreach ($files as $k => $file) {
         //echo $file . " replaces " . $webroot ."/". $file . "\n";
         if (file_exists($webroot . "/" . $file)) {
-            echo "OK";
+            $msg[] =  "OK";
         }
         unzipFile($uploadFile, $file, $webroot);
     }
-    echo "</pre>";
+    $msg[] =  "</pre>";
     unlink($uploadFile);
 }
 
 function unzipFile($zipFilePath, $fileNameToExtract, $destinationPath)
 {
     $zip = new ZipArchive;
-
+    global $msg;
     // Open the ZIP file
     if ($zip->open($zipFilePath) === TRUE) {
         // Check if the file exists in the ZIP archive
         if ($zip->locateName($fileNameToExtract) !== false) {
             // Extract the specific file to the destination path
             $zip->extractTo($destinationPath, $fileNameToExtract);
-            echo "File '$fileNameToExtract' extracted to '$destinationPath'.\n";
+            $msg[] =  "File '$fileNameToExtract' extracted to '$destinationPath'.\n";
         } else {
-            echo "File '$fileNameToExtract' not found in the ZIP archive.\n";
+            $msg[] =  "File '$fileNameToExtract' not found in the ZIP archive.\n";
         }
         // Close the ZIP file
         $zip->close();
     } else {
-        echo "Failed to open ZIP file.\n";
+        $msg[] =  "Failed to open ZIP file.\n";
     }
 }
 
 function listFilesInZip($zipFilePath)
 {
+    global $msg;
     $files = [];
     $zip = new ZipArchive;
 
@@ -63,7 +65,7 @@ function listFilesInZip($zipFilePath)
         // Close the ZIP file
         $zip->close();
     } else {
-        echo "Failed to open ZIP file.\n";
+        $msg[] =  "Failed to open ZIP file.\n";
     }
     return $files;
 }
@@ -113,6 +115,9 @@ function listFilesInZip($zipFilePath)
             <br><br>
             <button class="btn btn-primary" type="submit">Upload and Update</button>
         </form>
+    </div>
+    <div>
+        <?php echo implode($msg);?>
     </div>
     <script>
     </script>
