@@ -1,5 +1,66 @@
 <?php
 $msg[] = "This is not yet working!";
+ini_set(option: 'display_errors', value: 1);
+error_reporting(error_level: E_ALL);
+
+$url = 'https://github.com/MrIanC/WebMakerOne/archive/refs/heads/main.zip';
+$zipFile = __DIR__ . '/install.zip';
+
+$fp = fopen($zipFile, 'w+');
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_FILE, $fp);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_BUFFERSIZE, 1024 * 1024);
+curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, 1024);
+curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, 30);
+curl_setopt($ch, CURLOPT_ENCODING, '');
+
+curl_exec($ch);
+
+if (curl_errno($ch)) {
+    $msg[] = 'Error: ' . curl_error($ch);
+} else {
+    $msg[] = 'File downloaded successfully!';
+}
+
+curl_close($ch);
+fclose($fp);
+
+$extractPath = $_SERVER['DOCUMENT_ROOT'];
+
+$zip = new ZipArchive;
+if ($zip->open($zipFile) === TRUE) {
+    for ($i = 0; $i < $zip->numFiles; $i++) {
+        $filePath = $zip->getNameIndex($i);
+        $mainFolder = strpos($filePath, '/') !== false ? explode('/', $filePath)[0] . '/' : '';
+        $newPath = str_replace($mainFolder, '', $filePath);
+        $filepathOK = false;
+
+        if (str_contains($filePath, "setup/"))
+            $filepathOK = true;
+        if (str_contains($filePath, "resources/js/"))
+            $filepathOK = true;
+
+        if ($filepathOK) {
+            if (substr($filePath, -1) == '/') {
+                @mkdir("$extractPath/$newPath", 0755, true);
+            } else {
+                $msg[] = "extracting: $extractPath/$newPath </br>";
+                copy("zip://$zipFile#$filePath", "$extractPath/$newPath");
+            }
+        }
+
+    }
+    $zip->close();
+    unlink($zipFile);
+    $msg[] = 'Files unzipped successfully!';
+} else {
+    $msg[] = 'Failed to unzip the file!';
+}
+
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +87,7 @@ $msg[] = "This is not yet working!";
         <div class="text-center">
             <div class="display-1 fw-bold">Update</div>
         </div>
-        <p>Nope this is still not working!</p>
+        <p>Lets Check!</p>
         <?php $msg[] = implode($msg); ?>
     </div>
 </body>
