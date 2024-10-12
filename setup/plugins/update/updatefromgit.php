@@ -2,23 +2,20 @@
 ini_set(option: 'display_errors', value: 1);
 error_reporting(error_level: E_ALL);
 
-$url = 'https://github.com/MrIanC/WebMakerOne/archive/refs/heads/main.zip'; // Replace with actual URL
-$zipFile = __DIR__ . '/install.zip'; // Path to save the ZIP file
-/*
-$fp = fopen($zipFile, 'w+'); // File pointer for writing the file
+$url = 'https://github.com/MrIanC/WebMakerOne/archive/refs/heads/main.zip';
+$zipFile = __DIR__ . '/install.zip';
+
+$fp = fopen($zipFile, 'w+');
 
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_FILE, $fp);
-curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Follow redirects
-curl_setopt($ch, CURLOPT_BUFFERSIZE, 1024 * 1024); // Increase buffer size to 1MB
-curl_setopt($ch, CURLOPT_TIMEOUT, 0); // No timeout for large files
-curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); // Set connection timeout to 10 seconds
-curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, 1024); // Minimum transfer speed 1KB/sec
-curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, 30); // If below speed limit for 30 seconds, abort
-
-// Optional: Enable compression if server supports it
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($ch, CURLOPT_BUFFERSIZE, 1024 * 1024);
+curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, 1024);
+curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, 30);
 curl_setopt($ch, CURLOPT_ENCODING, '');
-
 curl_exec($ch);
 
 if (curl_errno($ch)) {
@@ -29,7 +26,7 @@ if (curl_errno($ch)) {
 
 curl_close($ch);
 fclose($fp);
-*/
+
 function unzipFile($zipFilePath, $fileNameToExtract, $destinationPath)
 {
     $zip = new ZipArchive;
@@ -114,14 +111,17 @@ $msg = [];
 $allfiles = listFilesInZip($zipFile);
 foreach ($allfiles as $filename) {
     if (str_contains($filename, "WebMakerOne-main/setup")) {
-        //unzipFile($zipFile, $fileNameToExtract, $destinationPath);
+        $destinationPath = dirname(str_replace("WebMakerOne-main", $_SERVER['DOCUMENT_ROOT'], $filename));
+        unzipFile($zipFile, $filename, $destinationPath);
         $msg[] = "$filename<br>";
     }
     if (str_contains($filename, "WebMakerOne-main/resources/js/")) {
-        //unzipFile($zipFile, $fileNameToExtract, $destinationPath);
+        $destinationPath = dirname(str_replace("WebMakerOne-main", $_SERVER['DOCUMENT_ROOT'], $filename));
+        unzipFile($zipFile, $filename, $destinationPath);
         $msg[] = "$filename<br>";
     }
 }
+
 unlink($zipFile);
 ?>
 <!DOCTYPE html>
@@ -150,7 +150,8 @@ unlink($zipFile);
         <div class="text-center">
             <div class="display-1 fw-bold">Update</div>
         </div>
-        <p class="fw-bold fs-2">Still working on updating from GIT without overwriting everything. I'm Getting there. It's just not a priority right now.</p>
+        <p class="fw-bold fs-2">Still working on updating from GIT without overwriting everything. I'm Getting there.
+            It's just not a priority right now.</p>
         <?php echo implode($msg); ?>
     </div>
     <script>
