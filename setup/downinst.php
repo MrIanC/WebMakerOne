@@ -1,6 +1,6 @@
 <?php
 
-$url = 'https://s8.techbit.co.za/install.zip'; // Replace with actual URL
+$url = 'https://github.com/MrIanC/WebMakerOne/archive/refs/heads/main.zip'; // Replace with actual URL
 $zipFile = __DIR__ . '/install.zip'; // Path to save the ZIP file
 
 $fp = fopen($zipFile, 'w+'); // File pointer for writing the file
