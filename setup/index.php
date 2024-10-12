@@ -1,17 +1,19 @@
 <?php
-
-
-ini_set(option: 'display_errors', value: 1);
-error_reporting(error_level: E_ALL);
+if (1) {
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+}
 
 include __DIR__ . "/authenticate.php";
+include __DIR__ . "/path.php";
 
 $menu = [];
 $plugins = glob(__DIR__ . "/plugins/*/main.php");
 foreach ($plugins as $key => $plugin) {
     include $plugin;
 }
-if (isset($_GET['pluginpage'])) {
+
+if (isset($_GET['pluginpage'], $menu[$_GET['pluginpage']]['page']) && function_exists($menu[$_GET['pluginpage']]['page'])) {
     $menu[$_GET['pluginpage']]['page']();
     exit();
 }
@@ -21,34 +23,38 @@ $state = json_decode(file_get_contents(__DIR__ . "/index/state.json"), true);
 if (!file_exists(__DIR__ . "/plugins/build/build.txt")) {
     unset($menu['edit']);
     if (isset($_POST['toggle_live'])) {
-        echo "Toggle";
         $state['index'] = ($state['index'] == "online") ? "offline" : "online";
         file_put_contents(__DIR__ . "/index/state.json", json_encode($state));
-        header("Location: index.php");
+        header("Location: /setup");
     }
-    
+
     $state = json_decode(file_get_contents(__DIR__ . "/index/state.json"), true);
 
-    foreach (glob("../resources/parts/pages/*.html") as $key => $file) {
-        $foldername = str_replace(".html", "", basename($file));
-        if ($state['index'] == "online") {
-            file_put_contents("../$foldername/index.html", file_get_contents(__DIR__ . "/index/online.html"));
-        } else {
-            file_put_contents("../$foldername/index.html", file_get_contents(__DIR__ . "/index/offline.html"));
+    $partspageshtml = glob("../resources/parts/pages/*.html");
+    $partspageshtml[] = "";
+    $webroot = $_SERVER['DOCUMENT_ROOT'];
+    $htmlonline = file_get_contents(__DIR__ . "/index/online.html");
+    $htmloffline = file_get_contents(__DIR__ . "/index/offline.html");
+
+    foreach ($partspageshtml as $key => $file) {
+        $foldername = "/" . str_replace(".html", "", basename($file));
+        $foldername = ($foldername == "/") ? "" : $foldername;
+        switch ($state['index']) {
+            case "online":
+                file_put_contents("$webroot$foldername/index.html", $htmlonline);
+                break;
+            default:
+                file_put_contents("$webroot$foldername/index.html", $htmloffline);
+                break;
         }
     }
-    if ($state['index'] == "online") {
-        file_put_contents("../index.html", file_get_contents(__DIR__ . "/index/online.html"));
-    } else {
-        file_put_contents("../index.html", file_get_contents(__DIR__ . "/index/offline.html"));
-    }
-    $button = ($state['index'] == "online") ? "Activate Under Construction Mode" : "Activate Live Mode";
 
+    $button = ($state['index'] == "online") ? "Activate Under Construction Mode" : "Activate Live Mode";
 } else {
     unset($menu['build']);
     $state['index'] = "online";
     file_put_contents(__DIR__ . "/index/state.json", json_encode($state));
-    $button ="";
+    $button = "";
 
 }
 
@@ -60,7 +66,7 @@ foreach ($menu as $key => $value) {
     $t++;
     if (isset($value['description']) && isset($value['link']) && isset($value['title']) && isset($value['sequence'])) {
         $content[$value['sequence']] = '
-            <div class="col-6 col-sm-6 col-md-4 col-lg-3 " >
+            <div class="col-12 col-sm-4 col-md-3 col-lg-2 " >
                 <div class="m-1 shadow ">
                     <a title="' . $value['description'] . '" class="btn form-control py-4 " href="' . $value['link'] . '">' . $value['title'] . '</a>
                 </div>
@@ -68,11 +74,12 @@ foreach ($menu as $key => $value) {
     }
 }
 ksort($content);
+
 $warning = [];
-if (file_exists(__DIR__ . "/plugins/users/21232f297a57a5a743894a0e4a801fc3.json")) {
+if (file_exists("$usersPath/21232f297a57a5a743894a0e4a801fc3.php")) {
     $warning[] = "<div class=\"bg-warning text-danger p-3 text-center\">";
-    $warning[] = "<div class=\"fw-bold\">User \"Admin\" still exists</div>";
-    $warning[] = "<div>Create a new user and remove the default 'admin' user from the users section</div>";
+    $warning[] = "<div class=\"fw-bold\">User \"Admin\" exists</div>";
+    $warning[] = "<div>to remove the user \"admin\" from settings->users you should login with a different account.</div>";
     $warning[] = "</div>";
 }
 ?>
@@ -103,22 +110,23 @@ if (file_exists(__DIR__ . "/plugins/users/21232f297a57a5a743894a0e4a801fc3.json"
     <?php
     echo implode($warning);
     ?>
-    <div class="text-center">
-        <h2 class="display-5 fw-bold">WebMakerOne</h2>
+    <div class="pt-3 text-center bg-white text-secondary">
+        <h2 class="fw-bold">WebMakerOne</h2>
     </div>
-
-    <form method="post" class=" pb-2 mb-5">
-        <div class="small bg-light mb-1">
-            <div class="container">
-                <div class="d-flex justify-content-center">
-                    <?php echo ($button == "")?'':'<button name="toggle_live" value="toggle" class="btn-sm btn btn-link">'.$button.'</button>';?> 
-                    <span class="btn btn-sm">
-                        <?php echo $banner ?>
-                    </span>
+    <div class="mb-5 sticky-top border-bottom">
+        <form method="post">
+            <div class="small bg-light">
+                <div class="container">
+                    <div class="d-flex justify-content-center">
+                        <?php echo ($button == "") ? '' : "<button name=\"toggle_live\" value=\"toggle\" class=\"btn-sm btn btn-link\">$button</button>"; ?>
+                        <span class="btn btn-sm">
+                            <?php echo $banner ?>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
     <div class="container">
         <div class="row">
             <?php echo implode($content); ?>
