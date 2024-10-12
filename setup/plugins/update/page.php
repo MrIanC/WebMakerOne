@@ -92,8 +92,21 @@ function listFilesInZip($zipFilePath)
     <?php include "menu.php"; ?>
     <div class="container">
         <div class="text-center">
-            <div class="display-1 fw-bold">Upload Installation Update</div>
+            <div class="display-1 fw-bold">Update</div>
         </div>
+    </div>
+    <div class="container">
+        <h2>Update from GitHub</h2>
+        <div class="text-center">
+            <a href="?pluginpage=updateFromGit">Update From GitHub</a>
+        </div>
+    </div>
+    <div class="container py-5 text-center">
+        OR
+    </div>
+
+    <div class="container">
+        <h2>Update from Zip</h2>
         <form method="post" enctype="multipart/form-data">
             <label for="fileUpload">Choose a file:</label>
             <input type="file" id="fileUpload" name="fileUpload" accept=".zip">

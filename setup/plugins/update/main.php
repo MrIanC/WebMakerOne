@@ -8,7 +8,18 @@ $menu['update'] = [
 
 function updatePage()
 {
-    $webroot = realpath("../");
+    $webroot = $_SERVER['DOCUMENT_ROOT'];
     include __DIR__ . "/page.php";
+}
+
+
+$menu['updateFromGit'] = [
+    "page" => "updateFromGitPage"
+];
+
+function updateFromGitPage()
+{
+    $webroot = $_SERVER['DOCUMENT_ROOT'];
+    include __DIR__ . "/updatefromgit.php";
 }
 
