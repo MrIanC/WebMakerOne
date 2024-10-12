@@ -7,23 +7,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
     $uploadFile = $uploadDir . basename($uploadfilename['name']);
 
     if (move_uploaded_file($uploadfilename['tmp_name'], $uploadFile)) {
-        $msg[] =  "File successfully uploaded!";
+        $msg[] = "File successfully uploaded!";
     } else {
-        $msg[] =  "File upload failed!";
+        $msg[] = "File upload failed!";
     }
 
-    $msg[] =  "<pre>";
+    $msg[] = "<pre>";
     $files = listFilesInZip($uploadFile);
 
 
     foreach ($files as $k => $file) {
         //echo $file . " replaces " . $webroot ."/". $file . "\n";
         if (file_exists($webroot . "/" . $file)) {
-            $msg[] =  "OK";
+            $msg[] = "OK";
         }
         unzipFile($uploadFile, $file, $webroot);
     }
-    $msg[] =  "</pre>";
+    $msg[] = "</pre>";
     unlink($uploadFile);
 }
 
@@ -37,14 +37,14 @@ function unzipFile($zipFilePath, $fileNameToExtract, $destinationPath)
         if ($zip->locateName($fileNameToExtract) !== false) {
             // Extract the specific file to the destination path
             $zip->extractTo($destinationPath, $fileNameToExtract);
-            $msg[] =  "File '$fileNameToExtract' extracted to '$destinationPath'.\n";
+            $msg[] = "File '$fileNameToExtract' extracted to '$destinationPath'.\n";
         } else {
-            $msg[] =  "File '$fileNameToExtract' not found in the ZIP archive.\n";
+            $msg[] = "File '$fileNameToExtract' not found in the ZIP archive.\n";
         }
         // Close the ZIP file
         $zip->close();
     } else {
-        $msg[] =  "Failed to open ZIP file.\n";
+        $msg[] = "Failed to open ZIP file.\n";
     }
 }
 
@@ -65,10 +65,23 @@ function listFilesInZip($zipFilePath)
         // Close the ZIP file
         $zip->close();
     } else {
-        $msg[] =  "Failed to open ZIP file.\n";
+        $msg[] = "Failed to open ZIP file.\n";
     }
     return $files;
 }
+
+
+
+$commits = json_decode(file_get_contents("https://api.github.com/repos/MrIanC/WebMakerOne/commits?sha=main&per_page=1", false, stream_context_create(['http' => ['header' => "User-Agent: PHP\r\n"]])), true);
+$verCtrl = $_SERVER['DOCUMENT_ROOT'] . "/setup/versionDate";
+$gitDate = $commits[0]['commit']['author']['date'];
+$currentDate = file_exists($verCtrl) ? file_get_contents($verCtrl) : "";
+if ($gitDate == $currentDate) {
+    $warning[] = "<div>Version: $gitDate</div>";
+} else {
+    $warning[] = "<div>Your version might be outdated, you may want to update.</div>";
+}
+//file_put_contents($verCtrl,$gitDate);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,6 +111,14 @@ function listFilesInZip($zipFilePath)
         </div>
     </div>
     <div class="container">
+        <div class="text-center">
+            <?php
+            echo implode($warning);
+            ?>
+        </div>
+    </div>
+
+    <div class="container">
         <h2>Update from GitHub</h2>
         <div class="text-center">
             <a href="?pluginpage=updateFromGit">Update From GitHub</a>
@@ -117,7 +138,7 @@ function listFilesInZip($zipFilePath)
         </form>
     </div>
     <div>
-        <?php echo implode($msg);?>
+        <?php echo implode($msg); ?>
     </div>
     <script>
     </script>

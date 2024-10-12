@@ -7,6 +7,7 @@ if (1) {
 include __DIR__ . "/authenticate.php";
 include __DIR__ . "/path.php";
 
+
 $menu = [];
 $plugins = glob(__DIR__ . "/plugins/*/main.php");
 foreach ($plugins as $key => $plugin) {
@@ -82,6 +83,9 @@ if (file_exists("$usersPath/21232f297a57a5a743894a0e4a801fc3.php")) {
     $warning[] = "<div>to remove the user \"admin\" from settings->users you should login with a different account.</div>";
     $warning[] = "</div>";
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

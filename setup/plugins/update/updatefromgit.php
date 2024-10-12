@@ -66,6 +66,12 @@ if ($zip->open($zipFile) === TRUE) {
     $zip->close();
     unlink($zipFile);
     $msg[] = 'Files unzipped successfully!';
+
+    $commits = json_decode(file_get_contents("https://api.github.com/repos/MrIanC/WebMakerOne/commits?sha=main&per_page=1", false, stream_context_create(['http' => ['header' => "User-Agent: PHP\r\n"]])), true);
+    $verCtrl = $_SERVER['DOCUMENT_ROOT']. "/setup/versionDate";
+    $gitDate = $commits[0]['commit']['author']['date'];
+    file_put_contents($verCtrl,$gitDate);
+    
 } else {
     $msg[] = 'Failed to unzip the file!';
 }
