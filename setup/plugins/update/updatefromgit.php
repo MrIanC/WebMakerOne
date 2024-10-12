@@ -1,5 +1,7 @@
 <?php
-$msg[] = "This is not yet working!";
+$msg[] = "";
+ini_set(option: 'display_errors', value: 1);
+error_reporting(error_level: E_ALL);
 ini_set(option: 'display_errors', value: 1);
 error_reporting(error_level: E_ALL);
 
@@ -37,14 +39,14 @@ if ($zip->open($zipFile) === TRUE) {
         $filePath = $zip->getNameIndex($i);
         $mainFolder = strpos($filePath, '/') !== false ? explode('/', $filePath)[0] . '/' : '';
         $newPath = str_replace($mainFolder, '', $filePath);
-        $filepathOK = false;
+        $extract = false;
 
-        if (str_contains($filePath, "setup/"))
-            $filepathOK = true;
-        if (str_contains($filePath, "resources/js/"))
-            $filepathOK = true;
+        if (str_contains($newPath, "setup/"))
+            $extract = true;
+        if (str_contains($newPath, "js/"))
+            $extract = true;
 
-        if ($filepathOK) {
+        if ($extract == true) {
             if (substr($filePath, -1) == '/') {
                 @mkdir("$extractPath/$newPath", 0755, true);
             } else {
@@ -52,7 +54,6 @@ if ($zip->open($zipFile) === TRUE) {
                 copy("zip://$zipFile#$filePath", "$extractPath/$newPath");
             }
         }
-
     }
     $zip->close();
     unlink($zipFile);
@@ -88,7 +89,7 @@ if ($zip->open($zipFile) === TRUE) {
             <div class="display-1 fw-bold">Update</div>
         </div>
         <p>Lets Check!</p>
-        <?php $msg[] = implode($msg); ?>
+        <?php echo implode($msg); ?>
     </div>
 </body>
 
