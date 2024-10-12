@@ -26,6 +26,7 @@ if (curl_errno($ch)) {
     $msg[] = 'Error: ' . curl_error($ch);
 } else {
     $msg[] = 'File downloaded successfully!';
+
 }
 
 curl_close($ch);
