@@ -1,7 +1,5 @@
 <?php
 session_start();
-ini_set(option: 'display_errors', value: 1);
-error_reporting(error_level: E_ALL);
 
 if (file_exists('path.php')) {
     include 'path.php';
