@@ -48,6 +48,8 @@ if ($zip->open($zipFile) === TRUE) {
             $extract = true;
         if (str_contains($newPath, "settings.json"))
             $extract = false;
+        if (str_contains($newPath, "state.json"))
+            $extract = false;
 
 
         if ($extract == true) {

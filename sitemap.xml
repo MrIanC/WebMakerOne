@@ -6,10 +6,4 @@
       <priority>0.5</priority>
       <changefreq>yearly</changefreq>
   </url>
-  <url>
-      <loc>https://s8.techbit.co.za/download</loc>
-      <lastmod>2024-10-12</lastmod>
-      <priority>0.5</priority>
-      <changefreq>yearly</changefreq>
-  </url>
 </urlset>

@@ -1,5 +1,4 @@
 User-agent: *
 Disallow: /
 Allow: /$
-Allow: /download/$
 Sitemap: https://s8.techbit.co.za/sitemap.xml
