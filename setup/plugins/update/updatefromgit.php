@@ -46,6 +46,9 @@ if ($zip->open($zipFile) === TRUE) {
             $extract = true;
         if (str_contains($newPath, "js/"))
             $extract = true;
+        if (str_contains($newPath, "settings.json"))
+            $extract = false;
+
 
         if ($extract == true) {
             if (substr($filePath, -1) == '/') {
