@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', value: 1);
+error_reporting(E_ALL);
 $msg = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
 
