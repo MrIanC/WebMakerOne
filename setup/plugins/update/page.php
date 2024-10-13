@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['fileUpload'])) {
     if (move_uploaded_file($uploadfilename['tmp_name'], $uploadFile)) {
         $msg[] = "File successfully uploaded!";
     } else {
+        $msg[] = $uploadfilename['error'];
         $msg[] = "File upload failed!";
     }
 
