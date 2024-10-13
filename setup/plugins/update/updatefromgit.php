@@ -1,9 +1,9 @@
 <?php
 $msg[] = "";
-ini_set(option: 'display_errors', value: 1);
-error_reporting(error_level: E_ALL);
-ini_set(option: 'display_errors', value: 1);
-error_reporting(error_level: E_ALL);
+if (isset($displaterrors)) {
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+}
 
 $url = 'https://github.com/MrIanC/WebMakerOne/archive/refs/heads/main.zip';
 $zipFile = __DIR__ . '/install.zip';
@@ -68,10 +68,10 @@ if ($zip->open($zipFile) === TRUE) {
     $msg[] = 'Files unzipped successfully!';
 
     $commits = json_decode(file_get_contents("https://api.github.com/repos/MrIanC/WebMakerOne/commits?sha=main&per_page=1", false, stream_context_create(['http' => ['header' => "User-Agent: PHP\r\n"]])), true);
-    $verCtrl = $_SERVER['DOCUMENT_ROOT']. "/setup/versionDate";
+    $verCtrl = $_SERVER['DOCUMENT_ROOT'] . "/setup/versionDate";
     $gitDate = $commits[0]['commit']['author']['date'];
-    file_put_contents($verCtrl,$gitDate);
-    
+    file_put_contents($verCtrl, $gitDate);
+
 } else {
     $msg[] = 'Failed to unzip the file!';
 }
