@@ -265,7 +265,7 @@ function showCart() {
                                                                 $.ajax({
                                                                     url: $("#sendcarttoaddress").text(),
                                                                     type: "POST",
-                                                                    data: { "name": $("#fullName").val(), "number": $("#number").val(), "email": $("#email").val(), "message": message.html(), "from": "www.edw.co.za", "sent": "recieved", "fail": "tryagain" },
+                                                                    data: { "name": $("#fullName").val(), "number": $("#number").val(), "email": $("#email").val(), "message": message.html(), "from": $("#sendfromtoaddress").text(), "sent": "recieved", "fail": "tryagain" },
                                                                     success: function (response) {
                                                                         if (response == "pass") {
 

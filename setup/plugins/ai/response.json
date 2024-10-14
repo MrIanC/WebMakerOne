@@ -4,7 +4,7 @@
       "content": {
         "parts": [
           {
-            "text": "\u003cdiv class=\"alt_saying\"\u003eBuilt with PHP. Crafted with code, powered by passion.\u003c/div\u003e \n"
+            "text": "\u003cdiv class=\"alt_saying\"\u003eControl your online presence\u003c/div\u003e\n\u003cdiv class=\"alt_saying\"\u003eRun your website\u003c/div\u003e\n\u003cdiv class=\"alt_saying\"\u003eAdminister your domain\u003c/div\u003e\n\u003cdiv class=\"alt_saying\"\u003eMaintain your web platform\u003c/div\u003e\n\u003cdiv class=\"alt_saying\"\u003eBe the master of your digital space\u003c/div\u003e \n"
           }
         ],
         "role": "model"
@@ -32,8 +32,8 @@
     }
   ],
   "usageMetadata": {
-    "promptTokenCount": 33,
-    "candidatesTokenCount": 22,
-    "totalTokenCount": 55
+    "promptTokenCount": 30,
+    "candidatesTokenCount": 81,
+    "totalTokenCount": 111
   }
 }
