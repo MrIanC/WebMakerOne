@@ -101,7 +101,7 @@ $(document).ready(function () {
                 datatype: "json",
                 success: function (jsonLd) {
                     jsonLd.url = window.location.href;
-                    $("head").append($("<script>", { type: "application/ld+json" }).html(JSON.stringify(jsonLd, null, 2)));
+                    $("head").append($("<script>", { type: "application/ld+json" }).text(JSON.stringify(jsonLd, null, 2)));
                 },
                 error: function () {
                     console.log("Json Business failure");

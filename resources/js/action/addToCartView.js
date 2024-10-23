@@ -213,7 +213,7 @@ function showCart() {
                                                         .html("Complete")
                                                         .click(function () {
                                                             ok = true;
-                                                            if (!(/^[a-zA-Z]+(?:['-]?[a-zA-Z]+)*\s+[a-zA-Z]+(?:['-]?[a-zA-Z]+)*$/.test($("#fullName").val()))) {
+                                                            if (!(/^[a-zA-Z]+(?:['-][a-zA-Z]+)*\s+[a-zA-Z]+(?:['-][a-zA-Z]+)*$/.test($("#fullName").val()))) {
                                                                 $("#fullName")
                                                                     .addClass("is-invalid")
                                                                     .on("keypress", function () {
@@ -256,7 +256,7 @@ function showCart() {
                                                                 message = $("<div>").append(
                                                                     $("<p>").append(
                                                                         $("<table>").css("width", "100%").append($("#productTable").html()),
-                                                                        $("<pre>").html(
+                                                                        $("<pre>").text(
                                                                             $("#address").val()
                                                                         )
                                                                     )
