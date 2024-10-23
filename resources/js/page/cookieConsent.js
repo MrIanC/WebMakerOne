@@ -1,15 +1,7 @@
 $(document).ready(function () {
     $.getScript("https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js", function () {
-        console.log("js-cookie library loaded!");
-        // Now you can use the js-cookie library
-
-        console.log("Cookie 'user' set.");
-
-        console.log("Cookie Consent");
         if (Cookies.get("acceptCookie")) {
             console.log("Accept Cookies");
-            //Cookies.set("acceptCookie", '', { expires: -1, path: '/' }); // Testing - unset cookie to show banner
-
         } else {
             $("<div>")
                 .attr("id", "cookieConsent")
@@ -46,7 +38,7 @@ $(document).ready(function () {
                                                     .addClass("btn btn-custom-dark mx-1")
                                                     .html("Accept")
                                                     .click(function () {
-                                                        Cookies.set('acceptCookie', 'Yes', { expires: (1 / 48), path: '/' }); // 1/48 is 30 minutes (1 day = 24 hours)
+                                                        Cookies.set('acceptCookie', 'Yes', { expires: (1 / 48), path: '/' });
 
                                                         $("#cookieConsent").remove();
                                                     }),

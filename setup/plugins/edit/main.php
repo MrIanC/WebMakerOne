@@ -1,6 +1,6 @@
 <?php
 $menu['edit'] = [
-    "sequence"=>10,
+    "sequence"=>100,
     "link" => "?pluginpage=edit",
     "title" => '<b class="display-5 fw-bold">E</b><div>Edit Mode</div>',
     "description" => "Edits are live",
@@ -9,6 +9,6 @@ $menu['edit'] = [
 ];
 
 function editPage() {
-    $webroot = realpath("../");
+    $webroot = $_SERVER['DOCUMENT_ROOT'];
     include __DIR__ . "/page.php";
 }

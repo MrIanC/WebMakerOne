@@ -1,6 +1,6 @@
 <?php
 $menu['footer'] = [
-    "sequence"=>7,
+    "sequence"=>50,
     "link" => "?pluginpage=footer",
     "title" => '<i class="display-5 bi bi-card-text"></i><div>Footer</div>',
     "description" => "Create and design the Footer of your site",

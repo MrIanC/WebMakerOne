@@ -1,6 +1,6 @@
 <?php
 $menu['font'] = [
-    "sequence"=>4,
+    "sequence"=>20,
     "link" => "?pluginpage=font",
     "title" => '<i class="display-5 bi bi-fonts"></i><div>Fonts</div>',
     "description" => "Set Your fonts for navigation, headings, and paragraphs",

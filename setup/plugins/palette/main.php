@@ -1,6 +1,6 @@
 <?php
 $menu['palette'] = [
-    "sequence"=>3,
+    "sequence"=>10,
     "link" => "?pluginpage=palette",
     "title" => '<i class="display-5 bi bi-palette"></i><div>Palette</div>',
     "description" => "Set custom colours for your Website",

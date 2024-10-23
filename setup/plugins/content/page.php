@@ -93,6 +93,10 @@ if (isset($_GET['restore'])) {
                 ?>
         </datalist>
     </div>
+    <div class="container d-flex p-4">
+    <a class="btn btn-link my-3" href="/setup/?pluginpage=grapesjs&pagename=banner">Edit Banner</a>
+    <!--TODO: update script to work with this. <a class="btn btn-link my-3" href="/setup/?pluginpage=grapesjs&pagename=consent">Edit Cookie Consent</a>-->
+    </div>
     <div class="border container">
         <div class="fw-bold mb-3">Restore Page</div>
         <?php

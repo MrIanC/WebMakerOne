@@ -1,6 +1,6 @@
 <?php
 $menu['menu'] = [
-    "sequence"=>6,
+    "sequence"=>40,
     "link" => "?pluginpage=menu",
     "title" => '<i class="display-5 bi bi-sign-turn-slight-right"></i><div>Navigation</div>',
     "description" => "Create your Navigation and create your menu items",
