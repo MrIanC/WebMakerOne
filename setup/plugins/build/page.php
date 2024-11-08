@@ -32,7 +32,7 @@ foreach ($filesList as $file) {
             }
             $link = $newLi->getElementsByTagName('a')->item(0);
             $link->setAttribute('href', $href);
-            $link->nodeValue = $title;
+            $link->textContent = $title;
             $menuItemsUl->appendChild($newLi);
         }
         $menuItemsUl->removeChild($templateLiActive);
@@ -110,7 +110,8 @@ foreach ($pagesArray as $href) {
     $body = $doc->getElementsByTagName('main')->item(0);
     $head = $doc->getElementsByTagName('head')->item(0);
 
-    $sections = $body->getElementsByTagName(qualifiedName: 'section');
+    $sections = $body->getElementsByTagName('section');
+    $headings1 = $body->getElementsByTagName('h1');
 
     // Build JSONLD Breadcrumbs
     $t = 1;
@@ -167,7 +168,7 @@ foreach ($pagesArray as $href) {
 
     $r++;
     $a[$r] = $doc->createElement('title');
-    $a[$r]->textContent = $theHeading;
+    $a[$r]->textContent = $headings1->item(0)->textContent;
 
     $r++;
     $a[$r] = $doc->createElement('meta');

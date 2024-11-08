@@ -102,6 +102,7 @@ foreach ($available as $key => $value) {
     </div>
     <div class=\"p-3  m-0\">
         <label for=\"$value\">$value</label>
+        <a href=\"?pluginpage=scriptsEdit&script=$value\">edit</a>
     </div>
     </div>";
 
@@ -142,7 +143,6 @@ foreach ($available as $key => $value) {
             <div class="h1">Active Scripts</div>
             <form method="POST">
                 <?php echo implode($allscripts); ?>
-
                 <button class="btn btn-primary">Save</button>
             </form>
         </div>
