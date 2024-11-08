@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $("<call-us-selector>")
-        .attr("phonesystem-url", "")
-        .attr("party", "")
+        .attr("phonesystem-url", "#phonesystemurl#")
+        .attr("party", "#party#")
         .appendTo("body");
     $("<script>")
         .attr("src", "https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js")

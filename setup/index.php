@@ -148,6 +148,9 @@ if (file_exists("$usersPath/21232f297a57a5a743894a0e4a801fc3.php")) {
                 <a class="btn btn-light" href="<?php $mi = "ai";
                 echo $menu[$mi]['link']; ?>"
                     title="<?php echo $menu[$mi]['description']; ?>"><?php echo $menu[$mi]['title']; ?></a>
+                <a class="btn btn-light" href="<?php $mi = "cxchat";
+                echo $menu[$mi]['link']; ?>"
+                    title="<?php echo $menu[$mi]['description']; ?>"><?php echo $menu[$mi]['title']; ?></a>
                 <a class="btn btn-light" href="<?php $mi = "users";
                 echo $menu[$mi]['link']; ?>"
                     title="<?php echo $menu[$mi]['description']; ?>"><?php echo $menu[$mi]['title']; ?></a>
