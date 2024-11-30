@@ -100,6 +100,7 @@ foreach ($filesList as $file) {
 
 $hostname = $_SERVER['HTTP_HOST'];
 foreach ($pagesArray as $href) {
+    echo $href;
     $htmlPages = file_get_contents("$webroot$href/index.html");
     $realHref = ($href == "/home") ? "/" : $href;
     $doc = new DOMDocument('1.0', "UTF-8");
@@ -168,7 +169,7 @@ foreach ($pagesArray as $href) {
 
     $r++;
     $a[$r] = $doc->createElement('title');
-    $a[$r]->textContent = $headings1->item(0)->textContent;
+    $a[$r]->textContent = $headings1->item(0)->textContent ?? "No Heading";
 
     $r++;
     $a[$r] = $doc->createElement('meta');
