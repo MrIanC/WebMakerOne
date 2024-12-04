@@ -1,5 +1,4 @@
 googleTagID = "PUT_YOUR_GOOGLE_TAG_ID_HERE";
-scriptPath = $(clickedAction).data("action");
 $.getScript("https://www.googletagmanager.com/gtag/js?id=" + googleTagID)
     .done(function () {
         window.dataLayer = window.dataLayer || [];
