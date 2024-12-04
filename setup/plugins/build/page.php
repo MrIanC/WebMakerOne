@@ -69,20 +69,23 @@ foreach ($filesList as $file) {
         $main->parentNode->replaceChild($fragment, $main);
     }
 
-    if (isset($navigation[$href])) {
-        $nav = new DOMDocument('1.0', "UTF-8");
-        libxml_use_internal_errors(true); // Suppress warnings due to malformed HTML
-        $nav->loadHTML("<?xml encoding=\"UTF-8\"><header>" . $navigation[$href] . "</header>");
-        libxml_clear_errors();
-        $nav_content = $nav->getElementsByTagName('header')->item(0);
-        if ($nav_content) {
-            $fragment = $doc->createDocumentFragment();
-            foreach ($nav_content->childNodes as $child) {
-                $fragment->appendChild($doc->importNode($child, true));
-            }
-            $header->parentNode->replaceChild($fragment, $header);
-        }
+    if (!isset($navigation[$href])) {
+        $href = "/home";
     }
+    $nav = new DOMDocument('1.0', "UTF-8");
+    libxml_use_internal_errors(true); // Suppress warnings due to malformed HTML
+    $nav->loadHTML("<?xml encoding=\"UTF-8\"><header>" . $navigation[$href] . "</header>");
+    libxml_clear_errors();
+    $nav_content = $nav->getElementsByTagName('header')->item(0);
+
+    if ($nav_content) {
+        $fragment = $doc->createDocumentFragment();
+        foreach ($nav_content->childNodes as $child) {
+            $fragment->appendChild($doc->importNode($child, true));
+        }
+        $header->parentNode->replaceChild($fragment, $header);
+    }
+
 
     $foot = new DOMDocument('1.0', "UTF-8");
     libxml_use_internal_errors(true); // Suppress warnings due to malformed HTML
