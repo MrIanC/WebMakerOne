@@ -27,7 +27,7 @@ if (isset($_GET['pagename'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.21.13/grapes.min.js"
         integrity="sha512-vnAsqCtkvU3XqbVNK0pQQ6F8Q98PDpGMpts9I4AJdauEZQVbqZGvJdXfvdKEnLC4o7Z1YfnNzsx+V/+NXo/08g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 
     <script src="/setup/grapejs/bs.js"></script>
